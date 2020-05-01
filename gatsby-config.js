@@ -6,5 +6,27 @@
 
 module.exports = {
   /* Your site config here */
-  plugins: [],
+  plugins: [
+    {
+      resolve: 'gatsby-source-geo-api-fr',
+      options: {
+        endpoint: 'regions',
+        type: 'region',
+      },
+    },
+    {
+      resolve: 'gatsby-source-geo-api-fr',
+      options: {
+        endpoint: 'departements',
+        type: 'departement',
+      },
+    },
+    {
+      resolve: 'gatsby-source-geo-api-fr',
+      options: {
+        endpoint: 'communes',
+        type: 'commune',
+      },
+    },
+  ],
 }
