@@ -1,4 +1,11 @@
 const fetch = require('node-fetch');
+const chalk = require('chalk');
+
+const fetchJson = async (...fetchArgs) => {
+  const raw = await fetch(...fetchArgs);
+  const json = raw.json();
+  return json;
+};
 
 exports.sourceNodes = async ({
   actions: { createNode, createParentChildLink },
@@ -11,8 +18,26 @@ exports.sourceNodes = async ({
   endpoint,
   type = endpoint,
 }) => {
-  const rawResponse = await fetch(`https://geo.api.gouv.fr/${endpoint}`);
-  const items = await rawResponse.json();
+  const fetchPath = `https://geo.api.gouv.fr/${endpoint}`;
+
+  const cacheKey = `${endpoint}${type}`;
+  const cacheMaxAge = 1000 * 60 * 60; //ms
+  let cachedData = await cache.get(cacheKey);
+
+  const log = (arg1, ...rest) => reporter.log(`${chalk.magenta('geo-api-fr')} ${arg1}`, ...rest)
+
+  if (!cachedData) {
+    log(`No cache for ${chalk.bold(endpoint)}. ${chalk.gray('Fetching…')}`);
+    cachedData = { last: Date.now(), items: await fetchJson(fetchPath) };
+  } else if (Date.now() > cachedData.last + cacheMaxAge) {
+    log(`Cache for ${chalk.bold(endpoint)} too old. ${chalk.gray('Fetching…')}`);
+    cachedData = { last: Date.now(), items: await fetchJson(fetchPath) };
+  } else {
+    log(`Using cache for ${chalk.bold(endpoint)}.`);
+  }
+
+  await cache.set(cacheKey, cachedData);
+  const { items } = cachedData;
 
   items.forEach(item => {
     const { code } = item;
@@ -51,5 +76,5 @@ exports.sourceNodes = async ({
     createNode(newNode);
   });
 
-  reporter.info(`${items.length} ${type}s`);
+  log(`${chalk.bold.green(items.length)} ${type}s`);
 };
