@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const chalk = require('chalk');
 const slugify = require('slugify');
+slugify.extend({ '\'': '-' });
 
 const pkg = require('./package.json');
 
@@ -50,7 +51,7 @@ exports.sourceNodes = async ({
     const newNode = {
       ...item,
 
-      slug: slugify(nom),
+      slug: slugify(nom, { strict: true }),
       id: createNodeId(`${type}${code}`),
       parent: null,
       children: [],
