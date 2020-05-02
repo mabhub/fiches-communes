@@ -28,7 +28,7 @@ exports.sourceNodes = async ({
 
   const fetchPath = `https://geo.api.gouv.fr/${endpoint}`;
   const cacheKey = `${endpoint}${type}`;
-  const cacheMaxAge = 1000 * 60 * 60; //ms
+  const cacheMaxAge = 1000 * 60 * 60 * 24 * 7; //ms
   let cachedData = await cache.get(cacheKey);
 
   if (!cachedData) {
