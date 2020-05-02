@@ -10,21 +10,21 @@ module.exports = {
     {
       resolve: 'gatsby-source-geo-api-fr',
       options: {
-        endpoint: 'regions',
+        endpoint: '/regions',
         type: 'region',
       },
     },
     {
       resolve: 'gatsby-source-geo-api-fr',
       options: {
-        endpoint: 'departements',
+        endpoint: '/departements',
         type: 'departement',
       },
     },
     {
       resolve: 'gatsby-source-geo-api-fr',
       options: {
-        endpoint: 'communes',
+        endpoint: '/communes',
         type: 'commune',
       },
     },

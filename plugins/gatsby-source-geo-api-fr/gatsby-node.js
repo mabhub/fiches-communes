@@ -21,12 +21,13 @@ exports.sourceNodes = async ({
   cache,
   reporter,
 }, {
+  apiPrefix = 'https://geo.api.gouv.fr',
   endpoint,
-  type = endpoint,
+  type = slugify(endpoint),
 }) => {
   const log = customLog(reporter, pkg.name);
 
-  const fetchPath = `https://geo.api.gouv.fr/${endpoint}`;
+  const fetchPath = `${apiPrefix}${endpoint}`;
   const cacheKey = `${endpoint}${type}`;
   const cacheMaxAge = 1000 * 60 * 60 * 24 * 7; //ms
   let cachedData = await cache.get(cacheKey);
