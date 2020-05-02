@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const chalk = require('chalk');
+const slugify = require('slugify');
 
 const fetchJson = async (...fetchArgs) => {
   const raw = await fetch(...fetchArgs);
@@ -40,10 +41,11 @@ exports.sourceNodes = async ({
   const { items } = cachedData;
 
   items.forEach(item => {
-    const { code } = item;
+    const { code, nom } = item;
     const newNode = {
       ...item,
 
+      slug: slugify(nom),
       id: createNodeId(`${type}${code}`),
       parent: null,
       children: [],
