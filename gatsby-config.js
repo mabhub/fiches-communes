@@ -28,5 +28,6 @@ module.exports = {
         type: 'commune',
       },
     },
+    'pages-communes',
   ],
 }
