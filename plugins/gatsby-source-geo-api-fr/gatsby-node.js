@@ -2,11 +2,16 @@ const fetch = require('node-fetch');
 const chalk = require('chalk');
 const slugify = require('slugify');
 
+const pkg = require('./package.json');
+
 const fetchJson = async (...fetchArgs) => {
   const raw = await fetch(...fetchArgs);
   const json = raw.json();
   return json;
 };
+
+const customLog = (reporter, prefix) => (arg1, ...rest) =>
+  reporter.log(`${chalk.magenta(prefix)} ${arg1}`, ...rest);
 
 exports.sourceNodes = async ({
   actions: { createNode, createParentChildLink },
@@ -19,13 +24,12 @@ exports.sourceNodes = async ({
   endpoint,
   type = endpoint,
 }) => {
-  const fetchPath = `https://geo.api.gouv.fr/${endpoint}`;
+  const log = customLog(reporter, pkg.name);
 
+  const fetchPath = `https://geo.api.gouv.fr/${endpoint}`;
   const cacheKey = `${endpoint}${type}`;
   const cacheMaxAge = 1000 * 60 * 60; //ms
   let cachedData = await cache.get(cacheKey);
-
-  const log = (arg1, ...rest) => reporter.log(`${chalk.magenta('geo-api-fr')} ${arg1}`, ...rest)
 
   if (!cachedData) {
     log(`No cache for ${chalk.bold(endpoint)}. ${chalk.gray('Fetching…')}`);
