@@ -11,6 +11,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "deploy": "./deploy",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "react-dom": "^16.12.0"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "prettier": "2.0.5"
   },
   "repository": {
