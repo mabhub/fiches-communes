@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fetch = require('node-fetch');
 const chalk = require('chalk');
 const slugify = require('slugify');
@@ -22,7 +23,7 @@ exports.sourceNodes = async ({
   cache,
   reporter,
 }, {
-  apiPrefix = 'https://geo.api.gouv.fr',
+  apiPrefix = process.env.CUSTOM_API_BASE || 'https://geo.api.gouv.fr',
   endpoint,
   type = slugify(endpoint),
 }) => {
