@@ -20,7 +20,7 @@ export default ({
               <>
                 {Boolean(index) && ', '}
                 <span key={dptSlug}>
-                  <a href={`/${slug}/${dptSlug}`}>
+                  <a href={`/${slug}/${dptSlug}/`}>
                     {dptNom}
                   </a>
                   {Boolean(code) && ` (${code})`}
@@ -37,7 +37,7 @@ export default ({
         {communes.map(({ nom, slug }, index) => (
           <>
             {Boolean(index) && ', '}
-            <span key={slug}><a href={`/${slug}`}>{nom}</a></span>
+            <span key={slug}><a href={`/${slug}/`}>{nom}</a></span>
           </>
         ))}
       </div>
