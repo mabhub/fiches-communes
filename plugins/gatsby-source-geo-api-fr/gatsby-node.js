@@ -30,7 +30,7 @@ exports.sourceNodes = async ({
   const log = customLog(reporter, pkg.name);
 
   const fetchPath = `${apiPrefix}${endpoint}`;
-  const cacheKey = `${endpoint}${type}`;
+  const cacheKey = `${fetchPath}${type}`;
   const cacheMaxAge = 1000 * 60 * 60 * 24 * 7; //ms
   let cachedData = await cache.get(cacheKey);
 
