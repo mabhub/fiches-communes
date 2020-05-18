@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 
 const Commune = ({
   data: {
@@ -14,27 +14,32 @@ const Commune = ({
   },
   pageContext: { code: insee },
 }) => {
-  const breadcrumb = {};
+  const breadcrumb = {
+    home: {
+      children: 'Accueil',
+      to: '/',
+    },
+  };
 
   if (region) {
     breadcrumb.region = {
       children: region.nom,
-      href: `/${region.slug}`,
+      to: `/${region.slug}`,
     };
   }
   if (departement) {
     breadcrumb.departement = {
       children: departement.nom,
-      href: breadcrumb.region
-        ? `/${region.slug}/${departement.slug}`
-        : `/${departement.slug}`,
+      to: breadcrumb.region
+        ? `/${region.slug}/${departement.slug}/`
+        : `/${departement.slug}/`,
     };
   }
 
   return (
     <section>
       {Object.values(breadcrumb).map(bcProps => (
-        <span key={bcProps.href}>{' '}»{' '}<a {...bcProps} /></span>
+        <span key={bcProps.to}>{' '}»{' '}<Link {...bcProps} /></span>
       ))}
       <h1>{nom}</h1>
 
