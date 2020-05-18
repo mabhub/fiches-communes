@@ -78,7 +78,7 @@ const createDepartementsPages = async ({
 
     createPage({
       path: pagePath,
-      component: path.resolve('./src/components/Debug.js'),
+      component: path.resolve('./src/components/Departement.js'),
       context: { code }
     })
   };
@@ -111,7 +111,7 @@ const createRegionsPages = async ({
   const eachRegion = ({ code, slug }) => {
     createPage({
       path: `/${slug}`,
-      component: path.resolve('./src/components/Debug.js'),
+      component: path.resolve('./src/components/Region.js'),
       context: { code }
     })
   };

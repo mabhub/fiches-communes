@@ -17,15 +17,13 @@ export default ({
 
           <div>
             {departements.map(({ dptSlug, dptNom, code }, index) => (
-              <>
+              <React.Fragment key={dptSlug}>
                 {Boolean(index) && ', '}
-                <span key={dptSlug}>
-                  <a href={`/${slug}/${dptSlug}/`}>
-                    {dptNom}
-                  </a>
-                  {Boolean(code) && ` (${code})`}
-                </span>
-              </>
+                <a href={`/${slug}/${dptSlug}/`}>
+                  {dptNom}
+                </a>
+                {Boolean(code) && ` (${code})`}
+              </React.Fragment>
             ))}
           </div>
         </section>

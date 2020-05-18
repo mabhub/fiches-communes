@@ -16,7 +16,7 @@ const Commune = ({
 }) => {
   const breadcrumb = {
     home: {
-      children: 'Accueil',
+      children: 'France',
       to: '/',
     },
   };
